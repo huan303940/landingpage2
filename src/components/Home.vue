@@ -909,6 +909,12 @@ section > article:nth-child(3) {
   }
 }
 
+@media screen  and (max-width: 1024px) {
+  #games_id .game-header {
+    padding: 0 40px;
+  }
+}
+
 @media screen  and (max-width: 600px) {
 
   .odd-col {
