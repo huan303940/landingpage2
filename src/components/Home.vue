@@ -456,8 +456,8 @@ export default {
 
 #home_id > div.background {
   background-image: url("../assets/ongtien.svg");
-  background-repeat: unset;
-  background-size: auto;
+  background-repeat: no-repeat;
+  background-size: contain;
   height: 100vh;
 }
 
@@ -573,6 +573,7 @@ section > article:nth-child(3) {
   line-height: 60px;
   /* or 100% */
   letter-spacing: 3.6px;
+  text-align: center;
 }
 
 .about-us-content {
