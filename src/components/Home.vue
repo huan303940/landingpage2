@@ -2,44 +2,41 @@
   <div style="background-color: #E5E5E5">
     <div id="home_id">
       <div class="background">
-        <nav class="navbar navbar-inverse">
-          <div class="page-navbar">
-            <div class="navbar-header">
-              <div class="navbar-brand logo">
-                <img src="../assets/White_logo.svg" alt="pic"/>
-              </div>
-            </div>
-            <div>
-              <ul class="nav navbar-nav">
-                <li><a v-on:click="menuClicked($refs.aboutUs)">{{ $t('aboutUs') }}</a></li>
-                <li><a v-on:click="menuClicked($refs.games)">{{ $t('games') }}</a></li>
-                <li><a v-on:click="menuClicked($refs.partners)">{{ $t('partners') }}</a></li>
-                <li><a v-on:click="menuClicked($refs.contacts)">{{ $t('contactUs') }}</a></li>
-                <li class="dropdown">
-                  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <img src="../assets/vietnam.svg" alt="pic">
-                    <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li class="pointer" v-on:click="selectLanguage('vn')">
-                      <div class="check-icon">
-                        <font-awesome-icon v-if="selectedLanguage === 'vn'" :icon="['fas','check']" size="1x"/>
-                      </div>
-                      <div><img class="m-r-5" src="../assets/vietnam.svg">
-                        <span>Vietnamese</span></div>
-                    </li>
-                    <li class="pointer" v-on:click="selectLanguage('en')">
-                      <div class="check-icon">
-                        <font-awesome-icon  v-if="selectedLanguage === 'en'" :icon="['fas', 'check']" size="1x"/>
-                      </div>
-                      <div><img class="m-r-5" src="../assets/united-states.svg">
-                        <span>English</span></div>
-                    </li>
-                  </ul>
+        <div class="topnav" id="myTopnav">
+          <a href="#home" class="active">
+            <img class="logo" src="../assets/White_logo.svg" alt="pic"/></a>
+          <div style="float: right">
+            <a v-on:click="menuClicked($refs.aboutUs)">{{ $t('aboutUs') }}</a>
+            <a v-on:click="menuClicked($refs.games)">{{ $t('games') }}</a>
+            <a v-on:click="menuClicked($refs.games)">{{ $t('partners') }}</a>
+            <a v-on:click="menuClicked($refs.games)">{{ $t('contactUs') }}</a>
+            <div class="language-btn">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <img src="../assets/vietnam.svg" alt="pic">
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li class="pointer" v-on:click="selectLanguage('vn')">
+                  <div class="check-icon">
+                    <font-awesome-icon v-if="selectedLanguage === 'vn'" :icon="['fas','check']" size="1x"/>
+                  </div>
+                  <div><img class="m-r-5" src="../assets/vietnam.svg">
+                    <span>Vietnamese</span></div>
+                </li>
+                <li class="pointer" v-on:click="selectLanguage('en')">
+                  <div class="check-icon">
+                    <font-awesome-icon  v-if="selectedLanguage === 'en'" :icon="['fas', 'check']" size="1x"/>
+                  </div>
+                  <div><img class="m-r-5" src="../assets/united-states.svg">
+                    <span>English</span></div>
                 </li>
               </ul>
             </div>
+            <a href="javascript:void(0);" class="icon" v-on:click="openMenu()">
+              <font-awesome-icon :icon="['fas','bars']"/>
+            </a>
           </div>
-        </nav>
+        </div>
+
         <section id="home_content_id">
           <article>We’re Getting Ready</article>
           <article>
@@ -61,15 +58,17 @@
             <div class="top-content-text">We will back to something amazing. Getting the latest updates about our games.
               Please sign up to our newsletter.
             </div>
-            <input class="email" v-model="email" placeholder="Enter your email">
+            <div class="email">
+              <input v-model="email" placeholder="Enter your email">
+              <img class="arrow-icon" src="../assets/arrow-right.svg"/>
+            </div>
           </article>
         </section>
         <div class="expand-btn">
-          <font-awesome-icon v-on:click="isExpanded = !isExpanded" :icon="['fas', isExpanded ? 'chevron-up': 'chevron-down']" size="2x"/>
+          <font-awesome-icon v-on:click="isExpanded = !isExpanded"
+                             :icon="['fas', isExpanded ? 'chevron-up': 'chevron-down']" size="2x"/>
         </div>
       </div>
-
-
     </div>
     <div :hidden="!isExpanded" id="about_us_id" ref="aboutUs">
       <div class="container m-auto">
@@ -124,34 +123,92 @@
             </div>
           </div>
         </div>
-        <section class="map-group">
-          <img class="illustrator" src="../assets/Illustrator.svg" alt="pic" />
-          <img class="map-img" src="../assets/Map.svg" alt="pic"/>
-        </section>
       </div>
+      <section class="map-group">
+        <img class="illustrator" src="../assets/Illustrator.svg" alt="pic"/>
+        <img class="map-img" src="../assets/Map.svg" alt="pic"/>
+      </section>
     </div>
     <div :hidden="!isExpanded" id="games_id" ref="games">
       <div class="game-header">
         <div>Our Games</div>
-        <div class="description">As a pioneer of mobile app gamification, we take pride in originality and individuality, providing global players with state-of-the-art games that feature splendid storylines, sensational sound effects and magnificent animation that never cease to impress.</div>
+        <div class="description">As a pioneer of mobile app gamification, we take pride in originality and
+          individuality, providing global players with state-of-the-art games that feature splendid storylines,
+          sensational sound effects and magnificent animation that never cease to impress.
+        </div>
       </div>
       <section>
-        <div class="card-game" v-for="(card, index) in cardGames" v-bind:key=index
-             v-bind:class="{ 'bottom-card': (index % 2 === 1) }">
-          <img :src="card.url"/>
-          <div class="card-description">
-            <div class="title">{{card.name}}</div>
-            <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+        <div class="row">
+          <div class="col-md-6 col-xs-6 left-group">
+            <div class="row">
+              <div class="col-md-6 col-xs-12 even-col">
+                <div class="card-game" v-for="(card, index) in cardGamesGroupLeft" v-bind:key=index>
+                  <article v-if="index % 2 === 0">
+                    <img :src="card.url"/>
+                    <div class="card-description">
+                      <div class="title">{{ card.name }}</div>
+                      <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-md-6 col-xs-12 odd-col">
+                <div class="card-game" v-for="(card, index) in cardGamesGroupLeft" v-bind:key=index>
+                  <article v-if="index % 2 !== 0">
+                    <img :src="card.url"/>
+                    <div class="card-description">
+                      <div class="title">{{ card.name }}</div>
+                      <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xs-6 right-group">
+            <div class="row">
+              <div class="col-md-6 col-xs-12 even-col">
+                <div class="card-game" v-for="(card, index) in cardGamesGroupRight" v-bind:key=index>
+                  <article v-if="index % 2 === 0">
+                    <img :src="card.url"/>
+                    <div class="card-description">
+                      <div class="title">{{ card.name }}</div>
+                      <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div class="col-md-6 col-xs-12 odd-col">
+                <div class="card-game" v-for="(card, index) in cardGamesGroupRight" v-bind:key=index>
+                  <article v-if="index % 2 !== 0">
+                    <img :src="card.url"/>
+                    <div class="card-description">
+                      <div class="title">{{ card.name }}</div>
+                      <div class="content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua.
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 
+
       </section>
     </div>
-    <div id="partners"  :hidden="!isExpanded" ref="partners">
+    <div id="partners" :hidden="!isExpanded" ref="partners">
       <div class="title"></div>
       <div class="content">
         <VueSlickCarousel :arrows="true" :dots="false" :autoplay="true" :slidesPerRow="5">
-          <div v-for="(img, index) in imagesSrc" v-bind:key=index ><img :src="imagesSrc[index]"/></div>
+          <div v-for="(img, index) in imagesSrc" v-bind:key=index><img :src="imagesSrc[index]"/></div>
         </VueSlickCarousel>
       </div>
     </div>
@@ -170,7 +227,7 @@
                 <img src="../assets/linkin.svg"/></div>
             </div>
             <div class="col-md-4 address">
-                <div>Địa chỉ</div>
+              <div>Địa chỉ</div>
               <div class="address-group">
                 <div><img src="../assets/address.svg"/></div>
                 <div>
@@ -185,8 +242,13 @@
             </div>
             <div class="col-md-4 ">
               <div class="subscription">Theo giỏi</div>
-              <div class="subscription-text">Đăng ký nhận bản tin của chúng tôi và là người đầu tiên biết về các cập nhật của chúng tôi</div>
-              <input class="email-subscription" v-model="email" placeholder="Email">
+              <div class="subscription-text">Đăng ký nhận bản tin của chúng tôi và là người đầu tiên biết về các cập
+                nhật của chúng tôi
+              </div>
+              <div class="email-subscription">
+                <input v-model="email" placeholder="Enter your email">
+                <img class="arrow-icon" src="../assets/arrow-right-white.svg"/>
+              </div>
             </div>
           </div>
         </div>
@@ -200,6 +262,39 @@
       </footer>
       <!-- Footer -->
     </div>
+
+    <div class="menu-mobile" v-if="isShow">
+      <div class="container">
+        <div class="language-btn">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <img src="../assets/vietnam.svg" alt="pic">
+            <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li class="pointer" v-on:click="selectLanguage('vn')">
+              <div class="check-icon">
+                <font-awesome-icon v-if="selectedLanguage === 'vn'" :icon="['fas','check']" size="1x"/>
+              </div>
+              <div><img class="m-r-5" src="../assets/vietnam.svg">
+                <span>Vietnamese</span></div>
+            </li>
+            <li class="pointer" v-on:click="selectLanguage('en')">
+              <div class="check-icon">
+                <font-awesome-icon  v-if="selectedLanguage === 'en'" :icon="['fas', 'check']" size="1x"/>
+              </div>
+              <div><img class="m-r-5" src="../assets/united-states.svg">
+                <span>English</span></div>
+            </li>
+          </ul>
+        </div>
+        <div class="close-icon" v-on:click="isShow = false"><font-awesome-icon :icon="['fas','times']" size="2x"/></div>
+      </div>
+      <div class="menu-list">
+        <div v-on:click="menuClicked($refs.aboutUs)">{{ $t('aboutUs') }}</div>
+        <div v-on:click="menuClicked($refs.games)">{{ $t('games') }}</div>
+        <div v-on:click="menuClicked($refs.games)">{{ $t('partners') }}</div>
+        <div v-on:click="menuClicked($refs.games)">{{ $t('contactUs') }}</div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -210,26 +305,28 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css'
 // optional style for arrows & dots
 import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css'
 import {i18n} from '../plugins/i18n';
+
 export default {
   name: "Home",
   components: {FontAwesomeIcon, VueSlickCarousel},
   data: function () {
     return {
       isExpanded: false,
+      isShow: false,
       selectedLanguage: 'vn',
       imagesSrc: [
-          require('../assets/partners/Rectangle52.png'),
-          require('../assets/partners/Rectangle53.png'),
-          require('../assets/partners/Rectangle54.png'),
-          require('../assets/partners/Rectangle55.png'),
-          require('../assets/partners/Rectangle56.png'),
-          require('../assets/partners/Rectangle57.png'),
-          require('../assets/partners/Rectangle58.png'),
-          require('../assets/partners/Rectangle59.png'),
-          require('../assets/partners/Rectangle60.png'),
-          require('../assets/partners/Rectangle61.png'),
-          require('../assets/partners/Rectangle62.png'),
-          require('../assets/partners/Rectangle63.png'),
+        require('../assets/partners/Rectangle52.png'),
+        require('../assets/partners/Rectangle53.png'),
+        require('../assets/partners/Rectangle54.png'),
+        require('../assets/partners/Rectangle55.png'),
+        require('../assets/partners/Rectangle56.png'),
+        require('../assets/partners/Rectangle57.png'),
+        require('../assets/partners/Rectangle58.png'),
+        require('../assets/partners/Rectangle59.png'),
+        require('../assets/partners/Rectangle60.png'),
+        require('../assets/partners/Rectangle61.png'),
+        require('../assets/partners/Rectangle62.png'),
+        require('../assets/partners/Rectangle63.png'),
       ],
       email: '',
       startTime: "July 7, 2017 12:03:00",
@@ -240,13 +337,15 @@ export default {
         {id: 2, text: "Minutes", time: 1},
         {id: 3, text: "Seconds", time: 1}
       ],
-      cardGames: [
+      cardGamesGroupLeft: [
         {id: 0, name: 'Pirates', url: require('../assets/card-games/Bitmap0.svg')},
         {id: 1, name: 'Witch Party', url: require('../assets/card-games/Bitmap1.svg')},
         {id: 2, name: 'Rocky', url: require('../assets/card-games/Bitmap2.svg')},
         {id: 3, name: 'Magic tree', url: require('../assets/card-games/Bitmap3.svg')},
         {id: 4, name: 'Aborigines', url: require('../assets/card-games/Bitmap4.svg')},
         {id: 5, name: 'Cinderella', url: require('../assets/card-games/Bitmap5.svg')},
+      ],
+      cardGamesGroupRight: [
         {id: 6, name: 'Kingland', url: require('../assets/card-games/Bitmap6.svg')},
         {id: 7, name: 'E-Space', url: require('../assets/card-games/Bitmap7.svg')},
         {id: 8, name: 'Rocky', url: require('../assets/card-games/Bitmap8.svg')},
@@ -260,6 +359,9 @@ export default {
     };
   },
   methods: {
+    openMenu: function () {
+      this.isShow = true;
+    },
     selectLanguage: function (language) {
       i18n.locale = language;
       this.selectedLanguage = i18n.locale;
@@ -303,6 +405,7 @@ export default {
     menuClicked: function (ref) {
 
       if (ref) {
+        this.isShow = false;
         // Use el.scrollIntoView() to instantly scroll to the element
         ref.scrollIntoView({behavior: 'smooth'});
       }
@@ -322,6 +425,7 @@ export default {
 .m-r-5 {
   margin-right: 5px;
 }
+
 .pointer {
   cursor: pointer;
 }
@@ -351,10 +455,31 @@ export default {
 }
 
 #home_id > div.background {
-  background-image:url("../assets/ongtien.svg") ;
+  background-image: url("../assets/ongtien.svg");
   background-repeat: unset;
   background-size: auto;
   height: 100vh;
+}
+
+.menu-mobile .language-btn {
+  border-radius: 8px;
+  border: 1px solid #AFAFAF;
+  padding: 0 10px;
+}
+
+.language-btn {
+  float: right;
+  position: relative;
+}
+
+.language-btn .dropdown-menu {
+  left: unset;
+  right: 0;
+}
+
+.menu-mobile .language-btn .dropdown-menu {
+  left: 0;
+  right: unset;
 }
 
 .top-content-text {
@@ -368,24 +493,6 @@ export default {
   margin: 100px auto 32px;
 }
 
-.page-navbar {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-}
-
-.logo {
-  display: flex;
-}
-
-.navbar-brand {
-  height: auto;
-}
-
-.nav.navbar-nav {
-  float: right;
-  justify-content: space-between;
-  padding: 20px;
-}
 
 .navbar-inverse .navbar-nav > li > a {
   color: white !important;
@@ -393,16 +500,6 @@ export default {
   font-weight: 700;
   Size: 14px;
   text-transform: uppercase;
-}
-
-.navbar-inverse .navbar-nav > li > a.dropdown-toggle {
-  padding: 8px;
-}
-
-.navbar.navbar-inverse {
-  background-color: unset;
-  border: unset;
-  z-index: 1;
 }
 
 section > article:first-child {
@@ -421,20 +518,8 @@ section > article:nth-child(3) {
   color: white;
 }
 
-.dropdown {
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
   background-color: unset;
-}
-
-.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
-  background-color: unset;
-}
-.dropdown .dropdown-menu {
-  background-color: unset;
-  border: unset;
-  padding: 0 8px;
-  left: unset;
-  right: 0;
-  min-width: 180px;
 }
 
 .dropdown-menu > li {
@@ -443,9 +528,11 @@ section > article:nth-child(3) {
   background-color: white;
   color: black;
 }
+
 .check-icon {
   padding: 8px;
 }
+
 /*HOME Section End*/
 
 /*Countdown Timer*/
@@ -571,7 +658,7 @@ section > article:nth-child(3) {
 }
 
 .map-img {
-  width: 100vw;
+  width: calc(100vw - 30px);
   height: auto;
 }
 
@@ -583,7 +670,7 @@ section > article:nth-child(3) {
 
 @keyframes spin {
   from {
-    margin-left: 100%;
+    margin-left: calc(100% - 30px);
     /*margin-bottom: 0;*/
   }
 
@@ -593,7 +680,7 @@ section > article:nth-child(3) {
   }
 }
 
-#games_id .game-header{
+#games_id .game-header {
   font-family: Playfair Display;
   font-style: normal;
   font-weight: 900;
@@ -614,9 +701,10 @@ section > article:nth-child(3) {
   line-height: 140%;
   text-align: center;
   color: #757575;
+  margin-bottom: 20px;
 }
 
-#games_id > section{
+#games_id > section {
   display: flex;
   flex-wrap: wrap;
   padding: 40px;
@@ -624,20 +712,27 @@ section > article:nth-child(3) {
 }
 
 .card-game {
-  display: inline;
-  padding: 20px;
+  display: inline-block;
   position: relative;
+  margin-bottom: 40px;
 }
 
-.card-game > img {
+.odd-col {
+  padding-top: 100px;
+}
+
+.card-game img {
   border-radius: 8px;
+  width: 100%;
+  height: auto;
 }
 
 .card-game .card-description {
   position: absolute;
-  top: 400px;
   text-align: left;
-  left: 50px;
+  padding: 40px;
+  left: 0;
+  bottom: 0;
 }
 
 .card-game .title {
@@ -648,6 +743,7 @@ section > article:nth-child(3) {
   line-height: 60px;
   color: white;
 }
+
 .card-game .content {
   font-family: 'Montserrat';
   font-style: normal;
@@ -667,10 +763,6 @@ section > article:nth-child(3) {
   background: #F6F6F6;
 }
 
-.slick-prev, .slick-next {
-  width: 33px !important;
-  height: 33px !important;
-}
 /*Footer*/
 .footer-rectangle {
   height: 446px;
@@ -712,22 +804,131 @@ section > article:nth-child(3) {
 }
 
 .email-subscription {
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  height: 40px;
+}
+.email-subscription > input{
+
   border-radius: 4px;
   background-color: unset;
   border: solid thin white;
   width: 100%;
   height: 40px;
-  margin-top: 40px;
   color: white;
 }
 
+#home_id .email input,
 #home_id .email {
+  position: relative;
   width: 560px;
+  display: inline-block;
   height: 56px;
   color: #000000;
+  overflow: hidden;
 }
 
-@media screen  and (max-width: 600px){
+.arrow-icon {
+  position: absolute;
+  right: 10px;
+  top: 15px;
+  width: 24px;
+  height: auto;
+}
+
+.email-subscription .arrow-icon {
+  top: 10px;
+}
+  /*NAV test*/
+.topnav {
+  overflow: hidden;
+  height: 150px;
+}
+.topnav > a {
+  padding: 14px 16px;
+  float: left;
+  display: block;
+}
+.topnav.is-mobile > div {
+  padding: 0;
+}
+.topnav > div {
+  padding: 20px;
+}
+.topnav > div > a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 17px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.topnav a:hover {
+  color: #F6F6F6;
+}
+
+.topnav a.active {
+  color: white;
+}
+
+.topnav .icon {
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topnav div a {
+    display: none;
+  }
+
+  .topnav a.icon {
+    float: right;
+    display: block;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topnav.responsive .icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .topnav.responsive a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+}
+
+@media screen  and (max-width: 600px) {
+
+  .odd-col {
+    padding-top: 0;
+  }
+
+  .right-group {
+    padding-top: 40px;
+  }
+
+  .logo {
+    width: 100px;
+    height: 30px;
+  }
+
+  .card-game {
+    margin-bottom: 20px;
+    padding: 0;
+  }
+
   .countdown-timer {
     font-family: "Playfair Display";
     width: 300px;
@@ -741,20 +942,28 @@ section > article:nth-child(3) {
     border-radius: 21px;
     background-color: white;
   }
+
   .card {
     padding: 10px;
   }
+
   .card-footer {
     font-size: 14px;
   }
 
   section > article:first-child {
     font-size: 40px;
+    padding: 5px;
   }
+
   .top-content-text {
     width: 70vw;
+    font-size: 12px;
+    margin: 40px auto;
   }
-  #home_id .email {
+
+  #home_id .email,
+  #home_id .email > input {
     width: 70vw;
   }
 
@@ -789,19 +998,11 @@ section > article:nth-child(3) {
     font-size: 30px !important;
   }
 
-  .card-game {
-    width: 178px;
-    padding: 7px;
-  }
-
-  .bottom-card {
-    margin-top: 0;
-  }
   .card-game > img {
     width: 164px;
   }
 
-  .card-game .card-description{
+  .card-game .card-description {
     position: absolute;
     bottom: 0;
     text-align: left;
@@ -809,12 +1010,15 @@ section > article:nth-child(3) {
     top: unset;
     padding: 15px;
   }
-  .card-game .card-description .content{
+
+  .card-game .card-description .content {
     font-size: 12px;
   }
-  .card-game .card-description .title{
+
+  .card-game .card-description .title {
     font-size: 24px;
   }
+
   .footer-rectangle {
     padding: 20px;
     height: auto;
@@ -826,6 +1030,36 @@ section > article:nth-child(3) {
 
   .subscription-text, .address-group {
     margin-top: 15px;
+  }
+
+  /*Menu Mobile*/
+  .menu-mobile {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    padding: 20px;
+    background-color: white;
+    z-index: 99999;
+  }
+
+  .menu-list > div{
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 17px;
+    text-transform: uppercase;
+    border-bottom: solid thin #EEEEEE;
+    padding: 24px;
+  }
+
+  .close-icon {
+    float: right;
+  }
+  .menu-mobile .language-btn {
+    float: left;
   }
 }
 </style>
